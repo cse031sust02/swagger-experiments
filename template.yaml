@@ -1,0 +1,114 @@
+swagger: "2.0"
+
+################################################################################
+#                              API Information                                 #
+################################################################################
+
+info:
+  version: "v1"
+  title: "My API Title"
+  description: "Put Your Description Here"
+
+################################################################################
+#                  Host, Base Path, Schemes and Content Types                  #
+################################################################################
+
+host: "api.mydomain.com"
+basePath: "/v1"
+schemes:
+  - "https"
+produces:
+  - "application/json"
+
+################################################################################
+#                              Tags                                            #
+################################################################################
+
+tags:
+- name: "Users"
+  description: "Access to users"
+- name: "Stores"
+  description: "Access to stores"
+
+################################################################################
+#                              Paths                                           #
+################################################################################
+
+paths:
+
+  # This is a path endpoint.
+  /users:
+    # This is a HTTP operation
+    get:
+      tags:
+        - "Users"
+      description: "Gets list of users"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: '#/definitions/User'
+ 
+  # another path endpoint.
+  /stores:
+    get:
+      tags:
+        - "Stores"
+      description: "Gets list of stores"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: '#/definitions/Store'
+        
+                  
+
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+
+definitions:
+
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+      username:
+        type: string
+      bio:
+        type: string
+      website:
+        type: string
+      counts:
+        type: object
+        properties:
+          media:
+            type: integer
+          follows:
+            type: integer
+          follwed_by:
+            type: integer
+            
+  Store:
+    type: object
+    properties:
+      id:
+        type: integer
+      owner:
+        $ref: "#/definitions/User"
+      desc:
+        type: string
+      website:
+        type: string
+    
